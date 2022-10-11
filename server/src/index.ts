@@ -1,14 +1,7 @@
 import express, { Application } from 'express';
 import morgan from 'morgan';
 import cors from 'cors';
-import {
-	PORT,
-	DB_HOST,
-	DB_PORT,
-	DB_DATABASE,
-	DB_USER,
-	DB_PASSWORD,
-} from './config';
+import { PORT } from './config';
 
 import gamesRoutes from './routes/gamesRoutes';
 
