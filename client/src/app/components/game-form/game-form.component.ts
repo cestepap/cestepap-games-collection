@@ -36,9 +36,9 @@ export class GameFormComponent implements OnInit {
 
           console.log(res);
 
-          // this.aux = res[0];
-          // this.game = this.aux;
-          // console.log(this.game);
+          this.aux = res[0];
+          this.game = this.aux;
+          console.log(this.game);
           this.edit = true;
         },
         (err) => console.error(err)

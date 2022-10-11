@@ -1,13 +1,13 @@
 import { Request, Response } from 'express';
 
-import pool from '../database';
+import pool from '../database.js';
 
-export const getGames = async (req: Request, res: Response) => {
+export const getGames = async (req, res) => {
 	const [games] = await pool.query('SELECT * FROM games');
 	res.json(games);
 };
 
-export const getGame = async (req: Request, res: Response): Promise<any> => {
+export const getGame = async (req, res) => {
 	const { id } = req.params;
 	const games = await pool.query('SELECT * FROM games WHERE id = ?', [id]);
 	if (games.length > 0) {
@@ -19,14 +19,14 @@ export const getGame = async (req: Request, res: Response): Promise<any> => {
 };
 
 export const createGame = async (
-	req: Request,
-	res: Response
-): Promise<void> => {
+	req,
+	res
+) => {
 	await pool.query('INSERT INTO games set ?', [req.body]);
 	res.json({ message: 'game created' });
 };
 
-export const updateGame = async (req: Request, res: Response): Promise<void> => {
+export const updateGame = async (req, res) => {
 	const { id } = req.params;
 	const game = await pool.query('UPDATE games set ? WHERE id = ?', [
 		req.body,
@@ -36,9 +36,9 @@ export const updateGame = async (req: Request, res: Response): Promise<void> => 
 };
 
 export const deleteGame = async (
-	req: Request,
-	res: Response
-): Promise<void> => {
+	req,
+	res
+) => {
 	const { id } = req.params;
 	const game = await pool.query('DELETE FROM games WHERE id = ?', [id]);
 	res.json({ message: 'game deleted' });
