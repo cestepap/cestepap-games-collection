@@ -1,4 +1,4 @@
-import express from 'express';
+import express, { Application } from 'express';
 import morgan from 'morgan';
 import cors from 'cors';
 import { PORT } from './config';
@@ -6,7 +6,7 @@ import { PORT } from './config';
 import gamesRoutes from './routes/gamesRoutes';
 
 class Server {
-	app;
+	public app: Application;
 
 	constructor() {
 		this.app = express();
@@ -14,7 +14,7 @@ class Server {
 		this.routes();
 	}
 
-	config() {
+	config(): void {
 		// this.app.set('port', process.env.PORT || 3000);
 		this.app.use(morgan('dev'));
 		this.app.use(cors());
@@ -23,7 +23,7 @@ class Server {
 		this.app.use(express.urlencoded({ extended: false }));
 	}
 
-	routes() {
+	routes(): void {
 		this.app.use('/api/games', gamesRoutes);
 
 		this.app.use((req, res, next) => {
@@ -33,7 +33,7 @@ class Server {
 		});
 	}
 
-	start() {
+	start(): void {
 		this.app.listen(PORT);
 		console.log('Server running on port', PORT);
 	}
@@ -41,3 +41,5 @@ class Server {
 
 const server = new Server();
 server.start();
+
+// console.log(pool);
