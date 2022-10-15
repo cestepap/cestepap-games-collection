@@ -35,7 +35,7 @@ class Server {
 
 	start(): void {
 		this.app.listen(PORT);
-		console.log('Server running on port', PORT);
+		console.log('Server runninggg on port', PORT);
 	}
 }
 

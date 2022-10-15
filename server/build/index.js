@@ -32,7 +32,7 @@ class Server {
     }
     start() {
         this.app.listen(config_1.PORT);
-        console.log('Server running on port', config_1.PORT);
+        console.log('Server runninggg on port', config_1.PORT);
     }
 }
 const server = new Server();
