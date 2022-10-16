@@ -12,12 +12,14 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
+exports.deleteGame = exports.updateGame = exports.createGame = exports.getGame = exports.getGames = void 0;
 const database_1 = __importDefault(require("../database"));
-exports.getGames = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+const getGames = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     const [games] = yield database_1.default.query('SELECT * FROM games');
     res.json(games);
 });
-exports.getGame = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+exports.getGames = getGames;
+const getGame = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     const { id } = req.params;
     const games = yield database_1.default.query('SELECT * FROM games WHERE id = ?', [id]);
     if (games.length > 0) {
@@ -26,11 +28,13 @@ exports.getGame = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     }
     res.status(404).json({ message: 'game not found' });
 });
-exports.createGame = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+exports.getGame = getGame;
+const createGame = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     yield database_1.default.query('INSERT INTO games set ?', [req.body]);
     res.json({ message: 'game created' });
 });
-exports.updateGame = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+exports.createGame = createGame;
+const updateGame = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     const { id } = req.params;
     const game = yield database_1.default.query('UPDATE games set ? WHERE id = ?', [
         req.body,
@@ -38,8 +42,10 @@ exports.updateGame = (req, res) => __awaiter(void 0, void 0, void 0, function* (
     ]);
     res.json({ message: 'game updated' });
 });
-exports.deleteGame = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+exports.updateGame = updateGame;
+const deleteGame = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     const { id } = req.params;
     const game = yield database_1.default.query('DELETE FROM games WHERE id = ?', [id]);
     res.json({ message: 'game deleted' });
 });
+exports.deleteGame = deleteGame;
